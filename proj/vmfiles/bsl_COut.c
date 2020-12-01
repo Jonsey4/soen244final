@@ -46,9 +46,9 @@ static void COut_Init(void) {
 static void COut_PutB(bool b)        { Console_Putchar(b ? 'T' : 'F'); }
 static void COut_PutC(char c)        { Console_Putchar(c); }
 static void COut_PutS(const char* s) { while (*s) Console_Putchar(*s++); }
-static void COut_PutI(i32  i)        { bsl_itoa(i, buf); COut_PutS(buf); }
-static void COut_PutU(u32  u)        { bsl_utoa(u, buf, 0, 10); COut_PutS(buf); }
-static void COut_PutX(u32  x)        { bsl_utoa(x, buf, 0, 16); COut_PutS(buf); } // Same behavior as Dos16 VM:
+static void COut_PutI(i32  i)        { System_itoa(i, buf); COut_PutS(buf); }
+static void COut_PutU(u32  u)        { _utoa(u, buf, 0, 10); COut_PutS(buf); }
+static void COut_PutX(u32  x)        { _utoa(x, buf, 0, 16); COut_PutS(buf); } // Same behavior as Dos16 VM:
                                                                                      // Hex alpha in upppercase
 static void COut_PutN(void)          { Console_Putchar('\n'); }
 
@@ -85,9 +85,9 @@ static void TestCout(void) {
     COut_PutS("Test xtoa\n");
     COut_PutS("123456789ABCDEF\n");
 
-    bsl_itoa(1234, buf);            COut_PutS(buf);
-    bsl_utoa(56789, buf, 0, 10);    COut_PutS(buf);
-    bsl_utoa(0xABCDEF, buf, 0, 16); COut_PutS(buf);
+    System_itoa(1234, buf);            COut_PutS(buf);
+    _utoa(56789, buf, 0, 10);    COut_PutS(buf);
+    _utoa(0xABCDEF, buf, 0, 16); COut_PutS(buf);
     COut_PutN();
 }
 
