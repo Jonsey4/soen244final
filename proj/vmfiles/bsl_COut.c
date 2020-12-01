@@ -5,15 +5,23 @@
 //
 */
 
-#include "bsl_OutDesc.h"
-#include "bsl_xtoa.h"
+#include "_outdesc.h"
+#include "_xtoa.h"
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
+#define F_OSC 16000000
+#define BAUD 57600
+#define UBRR F_OSC/16/BAUD-1
+
+
+
 // Transmit a character to UART. Actual Transmission
 static void TxChar(char c) {
   // your code...
+  while(!(UCSR0A & (1 << UDRE0)));
+  UDR0 = c;
 }
 
 // From '_console.c'
@@ -24,7 +32,15 @@ static char buf[12];    // Buffer reserved for conversion to ascii characters.
 
 //UART INIT
 static void COut_Init(void) {
-  // your code...
+    // your code...
+    UBRR0H = (unsigned char)(UBRR >> 8);
+    UBRR0L = (unsigned char)UBRR;
+
+    UCSR0B = (1 << RXCIE0) | (1 << RXEN0) | (1 << TXEN0);
+
+    UCSR0C = (1 << USBS0) | (3 << UCSZ00);
+    
+
 }
 
 static void COut_PutB(bool b)        { Console_Putchar(b ? 'T' : 'F'); }
