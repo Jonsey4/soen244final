@@ -5,7 +5,7 @@
 */
 
 #include "hal.h"     // hal_Init()
-#include "hal_Out.h" // All VMOut_Put* hal_Out.h == out.h
+#include "out.h" // All VMOut_Put* hal_Out.h == out.h
 
 int main(void) {
     hal_Init();
