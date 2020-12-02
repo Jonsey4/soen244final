@@ -11,18 +11,23 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-#define F_OSC 16000000
-#define BAUD 57600
-#define UBRR F_OSC/16/BAUD-1
+#define BAUD 103
 
 
 
 // Transmit a character to UART. Actual Transmission
 static void TxChar(char c) {
-  // your code...
   while(!(UCSR0A & (1 << UDRE0)));
   UDR0 = c;
 }
+
+//Reception
+static char RxChar(void){
+    while (!(UCSR0A & (1<<RXC0)));
+    return UDR0;
+}
+
+
 
 // From '_console.c'
 static void Console_Putchar(char c) { TxChar(c); }
@@ -30,18 +35,24 @@ static void Console_Putchar(char c) { TxChar(c); }
 static char buf[12];    // Buffer reserved for conversion to ascii characters.
                         // Need to cover max size (12) on a "i32" (sign + 10 chars + null)
 
-//UART INIT
+
 static void COut_Init(void) {
     // your code...
-    UBRR0H = (unsigned char)(UBRR >> 8);
-    UBRR0L = (unsigned char)UBRR;
+    //Enable TX pin for output
+    DDRD |= (1 << PD1);
 
-    UCSR0B = (1 << RXCIE0) | (1 << RXEN0) | (1 << TXEN0);
+    //Hardcoding the baud 
+    UBRR0 = BAUD;
 
-    UCSR0C = (1 << USBS0) | (3 << UCSZ00);
+    UCSR0B = (1 << RXEN0) | (1 << TXEN0);
+
+    //8 data bits, 1 Stop
+    UCSR0C = (1 << UCSZ01) | (1 << UCSZ00);    
     
-
+    UDR0;
 }
+
+
 
 static void COut_PutB(bool b)        { Console_Putchar(b ? 'T' : 'F'); }
 static void COut_PutC(char c)        { Console_Putchar(c); }
@@ -92,7 +103,7 @@ static void TestCout(void) {
 }
 
 int main (void) {
-//    COut_Init();        // Testing a direct call to init (as a first test).
+    //COut_Init();        // Testing a direct call to init (as a first test).
     Out_GetFactory("");   // Testing the factory that hides everything and does a lazy init.
 
     // Set onboard LED for output. Just to see a blinking feedback from the Nano board.
