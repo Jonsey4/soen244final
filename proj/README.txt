@@ -18,5 +18,15 @@ TASK 3: Here we added UART functionality to bsl_COut.cmHost
             123456789ABCDEF
     
     - Independently testing HAL
+            Test Out:<2
+            Bools: [T|F|T|T]
+            Ints:  [-1|-2147483648|2147483647|4294967295|FFFFFFFF]
+            Bools: [T|F|T|T]
+            Ints:  [-1|-2147483648|2147483647|4294967295|FFFFFFFF]
 
-    - Intependently testing Stack
+
+    - Intependently testing Stack: Run testVMOperandStack.bat. Success will look like this:
+            Test VM Operand Stack:
+            [ ][ 2 1 ][ 3 ][ 3 3 ][ 9 ][ 8 9 ][ 1 ][ ]
+            [ ][ 2 1 ][ 3 ][ 3 3 ][ 9 ][ 8 9 ][ 1 ][ ]
+
