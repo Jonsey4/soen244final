@@ -20,9 +20,42 @@ static void COut_PutN(void)          { printf("\n"); }
 
 #else
 #include "_xtoa.h"
+#include <avr/io.h>
+//#include <avr/interrupt>
+
+#define BAUD 103
+
+// Transmit a character to UART. Actual Transmission
+static void TxChar(char c) {
+  while(!(UCSR0A & (1 << UDRE0)));
+  UDR0 = c;
+}
+
+//Reception
+static char RxChar(void){
+    while (!(UCSR0A & (1<<RXC0)));
+    return UDR0;
+}
+
+static void COut_Init(void) {
+    // your code...
+    //Enable TX pin for output
+    DDRD |= (1 << PD1);
+
+    //Hardcoding the baud 
+    UBRR0 = BAUD;
+
+    UCSR0B = (1 << RXEN0) | (1 << TXEN0);
+
+    //8 data bits, 1 Stop
+    UCSR0C = (1 << UCSZ01) | (1 << UCSZ00);    
+    
+    UDR0;
+}
+
 
 // External refs to 'console.c' without
-void  Console_Putchar(char  c);
+void  Console_Putchar(char  c){ TxChar(c);};
 
 static char  buf[12];                /* to cover max size (12) "i32" (10+sign+null) */
 
@@ -46,7 +79,14 @@ static IVMOutDesc cout = {
     COut_PutN
 };
 
+static bool init = 0;
+
 IOut Out_GetFactory(const char* whichOne) {
-    whichOne = 0; // To avoid the warning on the unreferenced formal parameter
+    if (!init){
+        whichOne = 0; // To avoid the warning on the unreferenced formal parameter
+        COut_Init();
+        init = true;
+    }
     return &cout;
+    
 }
