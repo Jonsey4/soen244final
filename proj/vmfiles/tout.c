@@ -8,7 +8,7 @@
 #include "out.h" // All VMOut_Put* hal_Out.h == out.h
 
 int main(void) {
-    hal_Init();
+    Hal_Init();
 
     VMOut_PutS("Test Out:<2\n");
     VMOut_PutS("Bools: [T|F|T|T]\n");
