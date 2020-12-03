@@ -1,0 +1,49 @@
+#include "bsl_Uart.h"
+#include "bsl_stdtype.h"
+
+#include "hal.h"
+#include "hal_Loader.h"
+
+#include "out.h"
+#include "vm.h"
+
+
+u8* mem[memMax];
+
+
+
+LOADER
+int main{
+
+15 ish lines
+
+while(checksum)
+    UART recv byte
+    store byte in a buffer
+    
+
+Wait til transmission is done
+Follow protocol defined in document
+    if the command is good
+        store in mem
+
+
+
+
+
+
+
+invokes all the vm.c file shit
+
+
+
+
+}
+
+
+
+
+
+Admin.c is for compilation on desktop
+
+

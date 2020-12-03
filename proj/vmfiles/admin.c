@@ -70,8 +70,8 @@ static bool loadObjFile(FILE* f, u16 maxSize) {
     u16 n, size;
     u8  buf[2];
 
-    buf[0] = (u8)fgetc(f);             // Read size.msb
-    buf[1] = (u8)fgetc(f);             // Read size.msb
+    buf[0] = (u8)fgetc(f);             // Read size.msb (most sig bit)
+    buf[1] = (u8)fgetc(f);             // Read size.lsb (least sig bit)
     size = (u16)((buf[0] << 8) | buf[1]);
 
 //t VMOut_PutS("loadObjFile of size = %u\n", (u32)size);

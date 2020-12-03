@@ -12,7 +12,7 @@ TASK 3: Here we added UART functionality to bsl_COut.cmHost
     - Putty > Terminal 
         Select Implicit CR in every LF
 
-    - Independently testing BSL: We can run testBslXtoa.bat from within ./vmfiles. Done successfully, we will see the LED on the arduino blinking and output from putty:
+    - Independently testing BSL: We can run testBslXtoa.bat. Done successfully, we will see the LED on the arduino blinking and output from putty:
             Test xtoa
             123456789ABCDEF
             123456789ABCDEF
@@ -24,9 +24,9 @@ TASK 3: Here we added UART functionality to bsl_COut.cmHost
             Bools: [T|F|T|T]
             Ints:  [-1|-2147483648|2147483647|4294967295|FFFFFFFF]
 
-
     - Intependently testing Stack: Run testVMOperandStack.bat. Success will look like this:
             Test VM Operand Stack:
             [ ][ 2 1 ][ 3 ][ 3 3 ][ 9 ][ 8 9 ][ 1 ][ ]
             [ ][ 2 1 ][ 3 ][ 3 3 ][ 9 ][ 8 9 ][ 1 ][ ]
 
+TASK 4: Go into admin0 and choose a binary test to run. Back out and run the task4.bat + putty to get the output of that hardcoded test
