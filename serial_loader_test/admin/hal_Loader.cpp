@@ -27,17 +27,19 @@ u8 verifyChecksum(u8* packet) {
 }
 
 void getStatusCommand(u8* status) {
-  Serial.print(ack);
-  Serial.print(0x03);
-  Serial.print(*status);
-  Serial.print(*status);
+  Serial.write(ack);
+  Serial.write(0x03);
+  Serial.write(*status);
+  Serial.write(*status);
+  Serial.write(0x00);
 }
 
 void downloadCommand(u8* packet, Program* program) {
   // Should always be 32 bit number so we can harcode the indexes
   program->adress = (packet[3] << 24) | (packet[4] << 16) | (packet[5] << 8) | (packet[6] << 0);
   program->sizee = (packet[7] << 24) | (packet[8] << 16) | (packet[9] << 8) | (packet[10] << 0);
-  Serial.print(ack);
+  Serial.write(ack);
+  Serial.write(0x00);
 }
 
 void sendDataCommand(u8* packet, Program* program, u8* mem) {
@@ -45,23 +47,27 @@ void sendDataCommand(u8* packet, Program* program, u8* mem) {
     mem[program->index++] = packet[i];
     program->sizee += 8;
   }
-  Serial.print(ack);
+  Serial.write(ack);
+  Serial.write(0x00);
 }
 
 void runCommand(u8* packet,Program* program) { 
   program->runAdress = (packet[3] << 24) | (packet[4] << 16) | (packet[5] << 8) | (packet[6] << 0);
-  Serial.print(ack);
+  Serial.write(ack);
+  Serial.write(0x00);
 }
 
 // executeCommand returns 1 when it reads a run command
 u8 executeCommand(u8* packet, u8* mem,Program* program, u8* status) {
    u8 err = verifyChecksum(packet);
    if(err != 0) {
-    Serial.print(nak);
+    Serial.write(nak);
+    Serial.write(0x00);
     return 0;
    }
    if(packet[2] == PingCommand) {
-      Serial.print(ack);
+      Serial.write(ack);
+      Serial.write(0x00);
       return 0;
    } else if(packet[2] == GetStatusCommand) {
       getStatusCommand(status);
@@ -80,7 +86,8 @@ u8 executeCommand(u8* packet, u8* mem,Program* program, u8* status) {
       *program = Program{0,0,0,0};
       return 0;
    }
-   Serial.print(nak);
+   Serial.write(nak);
+   Serial.write(0x00);
    return 0;
 }
 
@@ -95,10 +102,12 @@ u8 hal_Loader(u8* mem) {
   u8 status = 0;
 
   // Will have to replace with a function that read byte from nano UART buffer
-  while(u8 d = Serial.read()){
+  while(1){
+    if(Serial.available()){
+    u8 d = Serial.read();
     if(parsingInProgress){
       packet[index++] = d;
-      if(index == packet[0]) {
+      if(d == 0) {
         if(executeCommand(packet, mem, &program, &status)){
           return 0;  
         }
@@ -110,5 +119,6 @@ u8 hal_Loader(u8* mem) {
       packet[index++] = d; 
       parsingInProgress = 1;     
     }
-  }    
+  } 
+  }   
 }

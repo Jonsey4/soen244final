@@ -6,7 +6,7 @@
 #define ack  0xCC
 #define nak  0x33
 
-#define PingCommand 0x20
+#define PingCommand      0x20
 #define GetStatusCommand 0x23
 #define DownloadCommand  0x21
 #define SendDataCommand  0x24

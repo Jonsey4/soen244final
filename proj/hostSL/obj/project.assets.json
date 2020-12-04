@@ -433,19 +433,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jones\\.nuget\\packages\\": {}
+    "C:\\Users\\admin\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jones\\Documents\\SharedFiles\\SOEN422\\final_proj\\proj\\hostSL\\hostSL.csproj",
+      "projectUniqueName": "C:\\Users\\admin\\Desktop\\soen244final\\proj\\hostSL\\hostSL.csproj",
       "projectName": "hostSL",
-      "projectPath": "C:\\Users\\jones\\Documents\\SharedFiles\\SOEN422\\final_proj\\proj\\hostSL\\hostSL.csproj",
-      "packagesPath": "C:\\Users\\jones\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jones\\Documents\\SharedFiles\\SOEN422\\final_proj\\proj\\hostSL\\obj\\",
+      "projectPath": "C:\\Users\\admin\\Desktop\\soen244final\\proj\\hostSL\\hostSL.csproj",
+      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\admin\\Desktop\\soen244final\\proj\\hostSL\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\jones\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
