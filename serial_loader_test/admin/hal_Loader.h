@@ -8,10 +8,10 @@
 
 #define PingCommand 0x20
 #define GetStatusCommand 0x23
-#define DownloadCommand 0x21
-#define SendDataCommand 0x24
-#define RunCommand 0x22
-#define ResetCommand 0x25
+#define DownloadCommand  0x21
+#define SendDataCommand  0x24
+#define RunCommand       0x22
+#define ResetCommand     0x25
 
 
 #define CommandReturn_Success 0x40
