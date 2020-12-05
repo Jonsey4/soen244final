@@ -1,5 +1,5 @@
 #include "hal_Loader.h"
-#include "_cout.c"
+#include "_cout.c"  //<-- change this to .h??
 
 // For now we will be using Serial object from arduino
 void hal_Init() {
