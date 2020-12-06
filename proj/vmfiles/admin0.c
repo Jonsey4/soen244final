@@ -4,10 +4,11 @@
 //
 */
 
-
-#include "vm.h"
 #include "hal.h"
 #include "hal_Loader.h"
+#include "out.h" //MAYBE?? w-del
+#include "vm.h"
+
 
 
 #define Target      "(ATMega328P)"
@@ -30,16 +31,20 @@ u8 Ack = 0xCC;
 
 int main() {
     u8 status;
-
+    Hal_Init();
     // bsl_Uart_Init();
+    VMOut_PutS("REACHING HERE? --e");
     hal_Init_Loader();
 
     while (1) {
         if ((status = hal_Loader(mem)) == 0) {
             DisplayBanner();
+            
             VM_Init(mem);
-            VM_execute(mem);
+            
 
+            VM_execute(mem);
+            
             // Send an Ack to tell the Host that program's execution is done.
             VMOut_PutC((char)Ack);
             VMOut_PutC((char)0);

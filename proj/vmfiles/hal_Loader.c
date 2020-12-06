@@ -1,9 +1,12 @@
+#include "_uart.h"  //<-- change this to .h??
+//#include "_cout.c"
 #include "hal_Loader.h"
-#include "_cout.c"  //<-- change this to .h??
+
 
 // For now we will be using Serial object from arduino
-void hal_Init() {
+void hal_Init_Loader() {
   COut_Init();
+  TxChar('Z');
 }
 
 typedef struct{

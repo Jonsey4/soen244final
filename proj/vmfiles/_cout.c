@@ -26,18 +26,18 @@ static void COut_PutN(void)          { printf("\n"); }
 #define BAUD 103
 
 // Transmit a character to UART. Actual Transmission
-static void TxChar(char c) {
+void TxChar(char c) {
   while(!(UCSR0A & (1 << UDRE0)));
   UDR0 = c;
 }
 
 //Reception
-static char RxChar(void){
+char RxChar(void){
     while (!(UCSR0A & (1<<RXC0)));
     return UDR0;
 }
 
-static void COut_Init(void) {
+void COut_Init(void) {
     // your code...
     //Enable TX pin for output
     DDRD |= (1 << PD1);
