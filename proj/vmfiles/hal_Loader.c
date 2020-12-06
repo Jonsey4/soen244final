@@ -5,8 +5,7 @@
 
 // For now we will be using Serial object from arduino
 void hal_Init_Loader() {
-  COut_Init();
-  TxChar('Z');
+//   COut_Init();
 }
 
 typedef struct{
@@ -48,7 +47,7 @@ void downloadCommand(u8* packet, Program* program) {
 void sendDataCommand(u8* packet, Program* program, u8* mem) {
   for(int i = 3; i < packet[0]; i++) {
     mem[program->index++] = packet[i];
-    program->sizee += 8;
+    // program->sizee += 8;
   }
   TxChar(ack);
   TxChar(0x00);
@@ -62,12 +61,12 @@ void runCommand(u8* packet,Program* program) {
 
 // executeCommand returns 1 when it reads a run command
 u8 executeCommand(u8* packet, u8* mem,Program* program, u8* status) {
-   u8 err = verifyChecksum(packet);
-   if(err != 0) {
-    TxChar(nak);
-    TxChar(0x00);
-    return 0;
-   }
+//    u8 err = verifyChecksum(packet);
+//    if(err != 0) {
+//     TxChar(nak);
+//     TxChar(0x00);
+//     return 0;
+//    }
    if(packet[2] == PingCommand) {
       TxChar(ack);
       TxChar(0x00);
@@ -107,24 +106,23 @@ u8 hal_Loader(u8* mem) {
   Program program = {.adress=0,.sizee = 0,.index = 0,.runAdress = 0};
   u8 status = 0;
 
-  // Will have to replace with a function that read byte from nano UART buffer
   while(1){
-    // if(Serial.available()){
     u8 d = RxChar();
-    if(parsingInProgress){
+    if(parsingInProgress > 0){
       packet[index++] = d;
-      if(d == 0) {
+      if(index == (packet[0] + 1)) {
         if(executeCommand(packet, mem, &program, &status)){
-          return 0;  
+            status = CommandReturn_Success;
+            parsingInProgress = 0;
+            return 0;  
         }
         status = CommandReturn_Success;
         parsingInProgress = 0;
-        index = 0; 
+        index = 0;
       }
     } else {
       packet[index++] = d; 
       parsingInProgress = 1;     
     }
-//   } 
   }   
 }

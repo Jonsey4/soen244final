@@ -175,7 +175,7 @@ public class SerialComPort {
         while (_continue) {
             try {
                 int size = _serialPort.Read(buffer, 0, 1);
-//t                Console.Write("size[" + string.Format("{0:X2}", buffer[0]) + "]:");
+                Console.Write("size[" + string.Format("{0:X2}", buffer[0]) + "]:");
                 if (buffer[0] != 0) {
                     do {
                         if (!_run && (buffer[0] == Ack)) {
@@ -187,11 +187,11 @@ public class SerialComPort {
                         if (_run && (buffer[0] == Ack)) {
                             size = _serialPort.Read(buffer, 0, 1); // read the zero
                             Console.Write("Ack from target. Run!\n");
-//t                            Console.Write("it's run + ack/zero " + string.Format("{0:X2} ", buffer[0]));
+                            Console.Write("it's run + ack/zero " + string.Format("{0:X2} ", buffer[0]));
                             break;
                         }
-                        size = _serialPort.Read(buffer, 0, 1);
-//t                        Console.Write(string.Format("{0:X2} ", buffer[0]));
+                           size = _serialPort.Read(buffer, 0, 1);
+                        Console.Write(string.Format("{0:X2} ", buffer[0]));
                     } while ((buffer[0] != 0)) ;
                 }
 
@@ -201,7 +201,7 @@ public class SerialComPort {
 
                         if (buffer[0] == Ack) {
                             size = _serialPort.Read(buffer, 0, 1); // read the zero
-//t                            Console.Write("running is done + ack/zero " + string.Format("{0:X2} ", buffer[0]));
+                            Console.Write("running is done + ack/zero " + string.Format("{0:X2} ", buffer[0]));
                             break;
                         }
                         Console.Write((char)buffer[0]);
