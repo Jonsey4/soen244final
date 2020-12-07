@@ -66,23 +66,16 @@ public class SerialComPort {
         var fs = new FileStream(exeFilename, FileMode.Open);
         var fileLength  = (int)fs.Length;
         var filePgmSize = fileLength - 2; 
-        var bufferLength = 3 + filePgmSize + 1; // [size|cksm|cmd(3) + pgm(6) + zero(1)]
-        var buffer = new byte[bufferLength];
+        var buffer = new byte[filePgmSize];
+        Console.WriteLine(filePgmSize);
 
         // Read the first two bytes to skip the size of the executable.
-        fs.Read(buffer, 0, 2);
-
-        // Get only the executable code in the buffer starting at index 3.
-        fs.Read(buffer, 3, filePgmSize);
-        buffer[0] = (byte)bufferLength;
-        buffer[2] = (byte)Cmd.SendData;
-
-        byte checksum = buffer[2];
-        // Calculate the checksum for range [2..n-1]
-        for (int n = 3; n < bufferLength; ++n) {
-            checksum += buffer[n]; 
+        fs.ReadByte();
+        fs.ReadByte();
+        
+        for(int i = 0; i < filePgmSize; i++) {
+            buffer[i] = (byte)(fs.ReadByte());
         }
-        buffer[1] = checksum;
         return buffer;
     }
     
@@ -152,11 +145,12 @@ public class SerialComPort {
             } else if (stringComparer.Equals("s", cmd)) { // getStatus
                 _serialPort.Write(getStatusPacket, 0, 4);
             } else if (stringComparer.Equals("d", cmd)) { // download (sendData - small pgm)
-#if LoadFromFile
-                _serialPort.Write(sendDataPacketFile, 0, sendDataPacketFile.Length);
-#else
-                _serialPort.Write(sendDataPacket, 0, 10);
-#endif
+// #if LoadFromFile
+//                 _serialPort.Write(sendDataPacketFile, 0, sendDataPacketFile.Length);
+// #else
+//                 _serialPort.Write(sendDataPacket, 0, 10);
+// #endif
+                downloadPRogram(sendDataPacketFile);
             } else if (stringComparer.Equals("r", cmd)) { // run
                 _serialPort.Write(runPacket, 0, 4);
                 _run = true;
@@ -168,6 +162,16 @@ public class SerialComPort {
         Console.WriteLine("bye!");
         readThread.Join();
         _serialPort.Close();
+    }
+
+    public static void downloadPRogram(byte[] program) {
+        int index = 0;
+        byte command = 0x24;
+        while(index < program.Length) {
+            // byte checksum = (byte)(command) + (byte)(program[index]);
+            byte[] packet = {0x04, 0x00, command, program[index++], 0};
+            _serialPort.Write(packet, 0, packet.Length);
+        }
     }
 
     // Synchronously reads one byte from the SerialPort input buffer (from target).
