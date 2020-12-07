@@ -29,6 +29,7 @@ static void DisplayBanner() {
 #define MemMax 36
 
 static u8  mem[MemMax];
+u8 Ack = 0xCC;
 
 int main() {
     u8 status;
@@ -37,7 +38,7 @@ int main() {
     hal_Init();
 
     while (1) {
-        if ( (status = hal_Loader(mem)) == Success ) {
+        if ((status = hal_Loader(mem)) == 0) {
             DisplayBanner();
             VM_Init(mem);
             VM_execute(mem);
