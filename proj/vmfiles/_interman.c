@@ -1,14 +1,15 @@
 #include "avr/interrupt.h"
 #include "avr/io.h"
-#include "_interman.h"
 #include "_stdtype.h"
+#include "_interman.h"
 
 
 
-void EnableInterrupts(){sei();}
-void DisableInterrupts(){cli();}
 
-u16 Interrupt_SaveAndDisable(){
+void _EnableInterrupts(){sei();}
+void _DisableInterrupts(){cli();}
+
+u16 _Interrupt_SaveAndDisable(){
     //return the SREG & disable interrupts
     u16 reg = SREG;
     cli();
@@ -16,7 +17,7 @@ u16 Interrupt_SaveAndDisable(){
     return reg;
 }
 
-void Interrupt_Restore(u16 flags){
+void _Interrupt_Restore(u16 flags){
     //take sreg as input
     //change the interrupt enable bit with
     SREG = flags;

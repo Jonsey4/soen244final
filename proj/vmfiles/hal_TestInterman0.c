@@ -7,8 +7,10 @@
 #include "hal.h"      // Hal_Init()
 #include "out.h"  // All VMOut_Put*
 
-#include "_interman.h"
+
 #include "interman.h"
+#include "_interman.h"
+
 
 // Interrupt Bit is the I-Bit (Bit 7) of SREG (AVR Status Register).
 // When I-Bit is cleared (0) all interrupts are disabled.
@@ -21,10 +23,11 @@
 #define Enabled  "[e]"
 #define Disabled "[d]"
 
+
 int main(void ) {
     u16 saveStatus;
 
-    hal_Init();
+    Hal_Init();
 
     VMOut_PutS("Test #0 - Interrupt Manager\n");
 

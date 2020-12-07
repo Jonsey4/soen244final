@@ -1,4 +1,9 @@
-void Interrupt_Enable();
-void Interrupt_Disable();
-u16 Interrupt_SaveAndDisable();
-void Interrupt_Restore();
+#ifndef anotherone
+#define anotherone
+
+void _Interrupt_Enable();
+void _Interrupt_Disable();
+u16 _Interrupt_SaveAndDisable();
+void _Interrupt_Restore();
+
+#endif 
