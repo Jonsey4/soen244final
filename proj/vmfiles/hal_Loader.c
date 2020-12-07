@@ -57,12 +57,6 @@ void runCommand(u8* packet,Program* program) {
 
 // executeCommand returns 1 when it reads a run command
 u8 executeCommand(u8* packet, u8* mem,Program* program, u8* status) {
-//    u8 err = verifyChecksum(packet);
-//    if(err != 0) {
-//     TxChar(nak);
-//     TxChar(0x00);
-//     return 0;
-//    }
    if(packet[2] == PingCommand) {
       TxChar(ack);
       TxChar(0x00);
