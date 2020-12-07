@@ -17,6 +17,7 @@
 #include "opcode.h"
 #include "vmstack.h"
 #include "vm.h"
+#include "interman.h"
 
 #ifdef IORegOn
 #include "ioreg.h"
