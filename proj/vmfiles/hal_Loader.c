@@ -1,19 +1,15 @@
 #include "_uart.h"  //<-- change this to .h??
-//#include "_cout.c"
 #include "hal_Loader.h"
 
 
-// For now we will be using Serial object from arduino
 void hal_Init_Loader() {
 //   COut_Init();
 }
 
 typedef struct{
-  // Don't really know the use of the adress, but we will keep it for now
   u32 adress;
   u32 sizee;
   u32 index;
-  // Not sure of its use too, probably won't use it
   u32 runAdress;
 } Program;
 
@@ -47,7 +43,7 @@ void downloadCommand(u8* packet, Program* program) {
 void sendDataCommand(u8* packet, Program* program, u8* mem) {
   for(int i = 3; i < packet[0]; i++) {
     mem[program->index++] = packet[i];
-    // program->sizee += 8;
+    program->sizee += 8;
   }
   TxChar(ack);
   TxChar(0x00);
