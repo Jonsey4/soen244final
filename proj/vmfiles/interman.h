@@ -10,4 +10,6 @@ u16 Interrupt_SaveAndDisable(){         return _Interrupt_SaveAndDisable();  }
 
 void Interrupt_Restore(u16 flags){      _Interrupt_Restore(flags);           }
 
+u16 GetStatusReg(){                     return _GetStatusReg();      }
+
 #endif
