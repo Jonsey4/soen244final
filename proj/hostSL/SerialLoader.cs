@@ -168,7 +168,6 @@ public class SerialComPort {
         int index = 0;
         byte command = 0x24;
         while(index < program.Length) {
-            // byte checksum = (byte)(command) + (byte)(program[index]);
             byte[] packet = {0x04, 0x00, command, program[index++], 0};
             _serialPort.Write(packet, 0, packet.Length);
         }
