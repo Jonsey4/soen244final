@@ -14,8 +14,12 @@
 @cmHost T12.exe >> Txx.txt
 @echo ST01:
 @cmHost ST01.exe >> Txx.txt
-@echo ST01:
+@echo ST02:
 @cmHost ST02.exe >> Txx.txt
+@echo ST03:
+@cmHost ST03.exe >> Txx.txt
+@echo ST04:
+@cmHost ST04.exe >> Txx.txt
 type Txx.txt
 @echo on
 @echo Checking test result...
