@@ -1,19 +1,15 @@
-#include "_uart.h"  //<-- change this to .h??
-//#include "_cout.c"
+#include "_uart.h" 
 #include "hal_Loader.h"
 
 
-// For now we will be using Serial object from arduino
 void hal_Init_Loader() {
 //   COut_Init();
 }
 
 typedef struct{
-  // Don't really know the use of the adress, but we will keep it for now
   u32 adress;
   u32 sizee;
   u32 index;
-  // Not sure of its use too, probably won't use it
   u32 runAdress;
 } Program;
 
@@ -61,12 +57,6 @@ void runCommand(u8* packet,Program* program) {
 
 // executeCommand returns 1 when it reads a run command
 u8 executeCommand(u8* packet, u8* mem,Program* program, u8* status) {
-//    u8 err = verifyChecksum(packet);
-//    if(err != 0) {
-//     TxChar(nak);
-//     TxChar(0x00);
-//     return 0;
-//    }
    if(packet[2] == PingCommand) {
       TxChar(ack);
       TxChar(0x00);
