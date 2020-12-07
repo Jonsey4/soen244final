@@ -3,9 +3,6 @@
 #include "_stdtype.h"
 #include "_interman.h"
 
-
-
-
 void _Interrupt_Enable(){sei();}
 void _Interrupt_Disable(){cli();}
 
@@ -19,8 +16,13 @@ u16 _Interrupt_SaveAndDisable(){
 
 void _Interrupt_Restore(u16 flags){
     //take sreg as input
-    //change the interrupt enable bit with
+    //change the interrupt enable bit. full send
     SREG = flags;
 }
 
+//helper
+u16 _GetStatusReg(){
+    u16 reg = SREG;
+    return reg;
+}
 
