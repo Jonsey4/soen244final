@@ -6,8 +6,8 @@
 
 
 
-void _EnableInterrupts(){sei();}
-void _DisableInterrupts(){cli();}
+void _Interrupt_Enable(){sei();}
+void _Interrupt_Disable(){cli();}
 
 u16 _Interrupt_SaveAndDisable(){
     //return the SREG & disable interrupts

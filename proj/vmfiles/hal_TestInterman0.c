@@ -9,7 +9,7 @@
 
 
 #include "interman.h"
-#include "_interman.h"
+// #include "_interman.h"
 
 
 // Interrupt Bit is the I-Bit (Bit 7) of SREG (AVR Status Register).
@@ -44,7 +44,7 @@ int main(void ) {
     VMOut_PutS("OnEntry: I[d] | <EI>I[e]<DI>I[d] | <SDI>SI[d]I[d]<RI>I[d] | <EI>[e]<SDI>SI[e]I[d]<RI>I[e] | OnExit: I[e]\n");
 
     VMOut_PutS("OnEntry: I");
-    VMOut_PutS( (GetStatusReg() & InterruptBit) ? Enabled : Disabled);
+    // VMOut_PutS( (GetStatusReg() & InterruptBit) ? Enabled : Disabled);
 
     // Test a typical sequence of EI/DI:
     VMOut_PutS(" | ");
@@ -52,13 +52,13 @@ int main(void ) {
     Interrupt_Enable();
 
     VMOut_PutS("I");
-    VMOut_PutS( (GetStatusReg() & InterruptBit) ? Enabled : Disabled);
+    // VMOut_PutS( (GetStatusReg() & InterruptBit) ? Enabled : Disabled);
 
     VMOut_PutS("<DI>");
     Interrupt_Disable();
 
     VMOut_PutS("I");
-    VMOut_PutS( (GetStatusReg() & InterruptBit) ? Enabled : Disabled);
+    // VMOut_PutS( (GetStatusReg() & InterruptBit) ? Enabled : Disabled);
 
     // Test a sequence of SDI/RI when all interrupts are disabled on entry:
     VMOut_PutS(" | ");
@@ -68,13 +68,13 @@ int main(void ) {
     VMOut_PutS("SI");
     VMOut_PutS( (saveStatus & InterruptBit) ? Enabled : Disabled);
     VMOut_PutS("I");
-    VMOut_PutS( (GetStatusReg() & InterruptBit) ? Enabled : Disabled);
+    // VMOut_PutS( (GetStatusReg() & InterruptBit) ? Enabled : Disabled);
 
     VMOut_PutS("<RI>");
     Interrupt_Restore(saveStatus);
 
     VMOut_PutS("I");
-    VMOut_PutS( (GetStatusReg() & InterruptBit) ? Enabled : Disabled);
+    // VMOut_PutS( (GetStatusReg() & InterruptBit) ? Enabled : Disabled);
 
 
     // Test a sequence of SDI/RI when all interrupts are enabled on entry:
@@ -84,7 +84,7 @@ int main(void ) {
     Interrupt_Enable();
 
     VMOut_PutS("I");
-    VMOut_PutS( (GetStatusReg() & InterruptBit) ? Enabled : Disabled);
+    // VMOut_PutS( (GetStatusReg() & InterruptBit) ? Enabled : Disabled);
 
     VMOut_PutS("<SDI>");
     saveStatus = Interrupt_SaveAndDisable();
@@ -92,17 +92,17 @@ int main(void ) {
     VMOut_PutS("SI");
     VMOut_PutS( (saveStatus & InterruptBit) ? Enabled : Disabled);
     VMOut_PutS("I");
-    VMOut_PutS( (GetStatusReg() & InterruptBit) ? Enabled : Disabled);
+    // VMOut_PutS( (GetStatusReg() & InterruptBit) ? Enabled : Disabled);
 
     VMOut_PutS("<RI>");
     Interrupt_Restore(saveStatus);
 
     VMOut_PutS("I");
-    VMOut_PutS( (GetStatusReg() & InterruptBit) ? Enabled : Disabled);
+    // VMOut_PutS( (GetStatusReg() & InterruptBit) ? Enabled : Disabled);
 
     VMOut_PutS(" | ");
     VMOut_PutS("OnExit: ");
-    VMOut_PutS( (GetStatusReg() & InterruptBit) ? Enabled : Disabled);
+    // VMOut_PutS( (GetStatusReg() & InterruptBit) ? Enabled : Disabled);
     VMOut_PutN();
 
     while(1) { }
