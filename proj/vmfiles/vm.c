@@ -66,16 +66,16 @@ static void InterruptManager(int op) {
         case 2: Stack_Push(runningStack, (u32)Interrupt_SaveAndDisable()); break;
         case 3: Interrupt_Restore( Stack_Pop(runningStack) ); break;
 
-        case 4: /* void Interrupt_SetVector(u8 number, u32 handlerAddr) */
-            handlerAddr = (u32)Stack_Pop(runningStack);
-            number      =  (u8)Stack_Pop(runningStack);
-            Interrupt_SetVector(number, handlerAddr);
-            break;
+        // case 4: /* void Interrupt_SetVector(u8 number, u32 handlerAddr) */
+        //     handlerAddr = (u32)Stack_Pop(runningStack);
+        //     number      =  (u8)Stack_Pop(runningStack);
+        //     Interrupt_SetVector(number, handlerAddr);
+        //     break;
 
-        case 5: /* u32  Interrupt_GetVector(u8 number) */
-            number = (u8)Stack_Pop(runningStack);
-            Stack_Push(runningStack, (u32)Interrupt_GetVector(number));
-            break;
+        // case 5: /* u32  Interrupt_GetVector(u8 number) */
+        //     number = (u8)Stack_Pop(runningStack);
+        //     Stack_Push(runningStack, (u32)Interrupt_GetVector(number));
+        //     break;
     }
 }
 #endif

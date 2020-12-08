@@ -56,7 +56,7 @@ public class SerialComPort {
 
     static byte[] buffer = new byte[12];
 
-#if LoadFromFile
+// #if LoadFromFile
     // Get the executable code into a formatted byte buffer ready to send with checksum.
     // Example: If a file.exe has a length    of 8  bytes [size(2)          + pgm(6)          ]
     //          then it needs a buffer length of 10 bytes [size|cksm|cmd(3) + pgm(6) + zero(1)] 
@@ -101,10 +101,10 @@ public class SerialComPort {
 //t        Console.WriteLine("\nsendDataPacket.Length = {0}.", sendDataPacketFile.Length);
 //t        Console.WriteLine("\nbuf.Length = {0}.", buf.Length);
 //t        Console.WriteLine("\nfile = {0} loaded.", exeFilename);
-#else
-    // Main thread to transmit packets to target (with hardcoded packets).
-    public static void Main() {
-#endif
+// #else
+//     // Main thread to transmit packets to target (with hardcoded packets).
+//     public static void Main() {
+// #endif
         StringComparer stringComparer = StringComparer.OrdinalIgnoreCase;
         Thread readThread = new Thread(ReadByte);
 
@@ -145,11 +145,6 @@ public class SerialComPort {
             } else if (stringComparer.Equals("s", cmd)) { // getStatus
                 _serialPort.Write(getStatusPacket, 0, 4);
             } else if (stringComparer.Equals("d", cmd)) { // download (sendData - small pgm)
-// #if LoadFromFile
-//                 _serialPort.Write(sendDataPacketFile, 0, sendDataPacketFile.Length);
-// #else
-//                 _serialPort.Write(sendDataPacket, 0, 10);
-// #endif
                 downloadPRogram(sendDataPacketFile);
             } else if (stringComparer.Equals("r", cmd)) { // run
                 _serialPort.Write(runPacket, 0, 4);
