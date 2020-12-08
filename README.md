@@ -1,7 +1,7 @@
 README.txt
 
 This file describes how to run our tests
-- make sure to run opur final VM 'f_vmFlash.bat' to flash the arduino with a proper version of Cm
+- make sure to run our final-form VM 'f_vmFlash.bat' to flash the arduino with a proper version of Cm
 - navigate to proj/hostSL directory
 - use commands 'dotnet build' and 'dotnet run <test-file.exe>' to run tests using the MODIFIED host loader
 - d to download, wait, then r to run 
