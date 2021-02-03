@@ -11,11 +11,3 @@ This file describes how to run our tests
 Additional testing can be accomplished with respective .bat file
 - task4.bat will run a test into the serial port, hard coded if the appropriate array has been defined in admin0.c. 
 - task5.bat compiles the vm with the loader attached.
-
-- Other tests should function as expected, but none of them are uaranteed without minor changes to the #includes of some files.
-
-We weren't given proper rules for formatting a final submission, so it's gonna be a little haphazard. If this presentation doesn't make sense, contact:
-            
-            Welton Jones
-            jones.welton.4@gmail.com 
-            619-890-8255
